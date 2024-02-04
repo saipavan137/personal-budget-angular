@@ -2,11 +2,11 @@
     "mybudget": [
         {
             "title": "Eat out",
-            "budget": 250
+            "budget": 800
         },
         {
             "title": "Rent",
-            "budget": 100
+            "budget": 1000
         },
         {
             "title": "Groceries",
@@ -14,11 +14,11 @@
         },
         {
             "title":"Clothing",
-            "budget":100
+            "budget":200
         },
         {
             "title":"Home Decor",
-            "budget":100
+            "budget":50
         },
         {
             "title":"Books",
@@ -26,7 +26,11 @@
         },
         {
             "title":"Cleaning Supplies",
-            "budget":100
+            "budget":70
+        },
+        {
+            "title":"Electronics",
+            "budget":500
         }
     ]
 }
