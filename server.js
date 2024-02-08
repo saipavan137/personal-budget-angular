@@ -1,7 +1,9 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3000;
-app.use('/',express.static('public'));
+
+app.use(cors());
 const fs = require('fs');
 app.get('/budget',(req , res) => {
     fs.readFile('budget.json', 'utf8', (err, data) => {
@@ -15,7 +17,6 @@ app.get('/budget',(req , res) => {
     });
 });
 
-
 app.listen(port, () => {
     console.log('Example app listening at https://localhost:${port}');
-})
+}) 
