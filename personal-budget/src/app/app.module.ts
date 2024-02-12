@@ -10,6 +10,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { ArticleComponent } from './article/article.component';
 import { ContactComponent } from './contact/contact.component';
 import { NgChartsModule } from 'ng2-charts';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import * as d3 from 'd3';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,8 @@ import { NgChartsModule } from 'ng2-charts';
     FooterComponent,
     HomepageComponent,
     ContactComponent,
-    ArticleComponent
+    ArticleComponent,
+    BreadcrumbsComponent
   ],
   imports: [
     BrowserModule,

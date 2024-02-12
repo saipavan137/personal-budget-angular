@@ -29,53 +29,42 @@ export class HomepageComponent implements OnInit{
   ],
   labels: []
   }
-//   public dataSource1: any= [];
-//   public svg: any;
-//   public pie: any;
-//   public width: number = 960;
-// public  height: number = 450;
-// public	radius: number = Math.min(this.width, this.height) / 2;
-//   private createSvg(): void{
-//     this.svg = d3.select("body")
-//     .append("svg")
-//     .append("g");
-//     this.svg.append("g")
-//     .attr("class", "slices");
-//   this.svg.append("g")
-//     .attr("class", "labels");
-//   this.svg.append("g")
-//     .attr("class", "lines");
-//   this.pie = d3.layout.pie()
-//       .sort(null)
-//       .value(function(d) {
-//         return d.value;
-//       });
-
-
-//   }
+   public DataSource1: any = []
+//    public svg: any;
+//    public pie: any;
+//    public width: number = 960;
+//    public height = 450;
+//    public radius = Math.min(this.width, this.height) / 2;
+//  public arc: any;
+//  public outerArc: any;
 
 
   constructor(private http: HttpClient){ }
+  //  public key = function(d: any){ return d.label; };
+  // public color = d3.scaleOrdinal(
+  //   ["Lorem ipsum", "dolor sit", "amet", "consectetur", "adipisicing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt"],
+  // ["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
   ngOnInit(): void {
     this.http.get('http://localhost:3000/budget')
     .subscribe((res: any) => {
-      //console.log(res.mybudget);
+      console.log(res.mybudget);
       for (var i = 0; i < res.mybudget.length; i++) {
         this.dataSource.datasets[0].data[i] = res.mybudget[i].budget;
         console.log("data",this.dataSource.datasets[0].data[i]);
         this.dataSource.labels[i] = res.mybudget[i].title;
         console.log("label",this.dataSource.labels[i]);
-
-        // this.dataSource1.push({
-        //     "label":res.mybudget[i].title,
-        //     "value":res.mybudget[i].budget
-        //   });
-        //   console.log("dataSource1",this.dataSource1)
-    }
-   this.createChart();
-    // change(DataSource1);
+        this.DataSource1.push({
+          "label":res.mybudget[i].title,
+          "value":res.mybudget[i].budget
+        });
+      }
     });
+     this.createChart();
+    //  this.createChart1();
+
+    // console.log("DataSource1",this.DataSource1);
+    //  this.change(this.DataSource1);
   }
   createChart() {
 
@@ -85,112 +74,74 @@ export class HomepageComponent implements OnInit{
           });
 }
 
-
-
-// public arc = d3.svg.arc()
-// 	.outerRadius(radius * 0.8)
-// 	.innerRadius(radius * 0.4);
-
-// public outerArc = d3.svg.arc()
-// 	.innerRadius(radius * 0.9)
-// 	.outerRadius(radius * 0.9);
-
-// svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-// public key = function(d){ return d.data.label; };
-
-// var color = d3.scale.ordinal()
-// 	.domain(["Lorem ipsum", "dolor sit", "amet", "consectetur", "adipisicing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt"])
-// 	.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-
-// function change(data) {
-
-// 	/* ------- PIE SLICES -------*/
-// 	var slice = svg.select(".slices").selectAll("path.slice")
-// 		.data(pie(data), key);
+// change(data: any) : void{
+//   this.createSvg();
+//   this.createPie();
+//   this.createArc();
+//   var slice = this.svg.select(".slices").selectAll("path.slice")
+// 		.data(this.pie(data), this.key);
 
 // 	slice.enter()
 // 		.insert("path")
-// 		.style("fill", function(d) { return color(d.data.label); })
+// 		.style("fill", function(d: any) { return d3.color(d.data.label); })
 // 		.attr("class", "slice");
 
-// 	slice
-// 		.transition().duration(1000)
-// 		.attrTween("d", function(d) {
-// 			this._current = this._current || d;
-// 			var interpolate = d3.interpolate(this._current, d);
-// 			this._current = interpolate(0);
-// 			return function(t) {
-// 				return arc(interpolate(t));
-// 			};
-// 		})
+	// slice
+	// 	.transition().duration(1000)
+	// 	.attrTween("d", (d: any)=> {
+	// 		this._current = this._current || d;
+	// 		var interpolate = d3.interpolate(this._current, d);
+	// 		this._current = interpolate(0);
+	// 		return (t: any) => {
+	// 			return this.arc(interpolate(t));
+	// 		};
+	// 	});
 
 // 	slice.exit()
 // 		.remove();
 
-// 	/* ------- TEXT LABELS -------*/
+// }
 
-// 	var text = svg.select(".labels").selectAll("text")
-// 		.data(pie(data), key);
+// createSvg(): void{
 
-// 	text.enter()
-// 		.append("text")
-// 		.attr("dy", ".35em")
-// 		.text(function(d) {
-// 			return d.data.label;
-// 		});
+//   this.svg = d3.select("body")
+// .append("svg")
+// .append("g")
 
-// 	function midAngle(d){
-// 		return d.startAngle + (d.endAngle - d.startAngle)/2;
-// 	}
+// this.svg.append("g")
+// .attr("class", "slices");
+// this.svg.append("g")
+// .attr("class", "labels");
+// this.svg.append("g")
+// .attr("class", "lines");
+// }
+// createArc(): void{
+// this.arc  = d3.arc()
+// 	.outerRadius(this.radius * 0.8)
+// 	.innerRadius(this.radius * 0.4);
 
-// 	text.transition().duration(1000)
-// 		.attrTween("transform", function(d) {
-// 			this._current = this._current || d;
-// 			var interpolate = d3.interpolate(this._current, d);
-// 			this._current = interpolate(0);
-// 			return function(t) {
-// 				var d2 = interpolate(t);
-// 				var pos = outerArc.centroid(d2);
-// 				pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
-// 				return "translate("+ pos +")";
-// 			};
-// 		})
-// 		.styleTween("text-anchor", function(d){
-// 			this._current = this._current || d;
-// 			var interpolate = d3.interpolate(this._current, d);
-// 			this._current = interpolate(0);
-// 			return function(t) {
-// 				var d2 = interpolate(t);
-// 				return midAngle(d2) < Math.PI ? "start":"end";
-// 			};
-// 		});
+// this.outerArc = d3.arc()
+// 	.innerRadius(this.radius * 0.9)
+// 	.outerRadius(this.radius * 0.9);
+// }
 
-// 	text.exit()
-// 		.remove();
+// createPie(): void{
 
-// 	/* ------- SLICE TO TEXT POLYLINES -------*/
 
-// 	var polyline = svg.select(".lines").selectAll("polyline")
-// 		.data(pie(data), key);
+//   this.pie = d3.pie()
+// 	.sort(null)
+// 	.value(function(d:any) {
+// 		return d.value;
+// 	});
 
-// 	polyline.enter()
-// 		.append("polyline");
+// Component({
+//   selector: 'my-donut-chart',
+//   templateUrl: './donut-chart.component.html',
+//   styleUrls: ['./donut-chart.component.css']
+// })
+// export class DonutChartComponent implements OnInit {
 
-// 	polyline.transition().duration(1000)
-// 		.attrTween("points", function(d){
-// 			this._current = this._current || d;
-// 			var interpolate = d3.interpolate(this._current, d);
-// 			this._current = interpolate(0);
-// 			return function(t) {
-// 				var d2 = interpolate(t);
-// 				var pos = outerArc.centroid(d2);
-// 				pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-// 				return [arc.centroid(d2), outerArc.centroid(d2), pos];
-// 			};
-// 		});
 
-// 	polyline.exit()
-// 		.remove();
-// };
 }
+
+
